@@ -1,0 +1,18 @@
+@echo off
+
+:: 檢查系統是否以管理員權限運行
+net session >nul 2>&1
+if %errorLevel% == 0 (
+    echo 已經以管理員身份執行此腳本
+) else (
+    echo 請以管理員身份運行此腳本
+    pause
+    exit /b 1
+)
+
+:: 設定Administrators帳號
+set AdminUser=Administrator
+net localgroup administrators %AdminUser% /add
+
+echo Administrators帳號已設定
+pause
