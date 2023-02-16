@@ -1,0 +1,21 @@
+@echo off
+
+REM 設定 IPv4 位址、子網路遮罩、預設閘道
+set IP=192.168.1.100
+set SubnetMask=255.255.255.0
+set Gateway=192.168.1.1
+
+REM 設定您的 DNS 伺服器地址
+set DNS1=8.8.8.8
+set DNS2=8.8.4.4
+
+REM 設定網卡名稱
+set adapterName="乙太網路"
+
+REM 設定 IPv4 位址和 DNS 伺服器
+netsh interface ipv4 set address name=%adapterName% source=static addr=%IP% mask=%SubnetMask% gateway=%Gateway%
+netsh interface ipv4 add dns name=%adapterName% addr=%DNS1% index=1
+netsh interface ipv4 add dns name=%adapterName% addr=%DNS2% index=2
+
+echo IPv4 和 DNS 設定已完成
+pause
