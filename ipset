@@ -1,0 +1,29 @@
+@echo off
+
+REM 設定網卡名稱
+set adapterName="乙太網路"
+
+REM 切換至靜態IP設定
+set /p action="要切換至靜態IP設定嗎？(y/n) "
+if /i "%action%"=="y" (
+REM 設定IP地址、子網路遮罩、預設閘道
+set IP=192.168.1.100
+set SubnetMask=255.255.255.0
+set Gateway=192.168.1.1
+
+REM 設定您的DNS伺服器地址
+set DNS1=8.8.8.8
+set DNS2=8.8.4.4
+
+REM 設定IPv4地址和DNS伺服器
+netsh interface ipv4 set address name=%adapterName% source=static addr=%IP% mask=%SubnetMask% gateway=%Gateway%
+netsh interface ipv4 add dns name=%adapterName% addr=%DNS1% index=1
+netsh interface ipv4 add dns name=%adapterName% addr=%DNS2% index=2
+) else (
+REM 切換至DHCP設定
+netsh interface ipv4 set address name=%adapterName% source=dhcp
+netsh interface ipv4 set dns name=%adapterName% source=dhcp
+)
+
+echo 設定已完成
+pause
