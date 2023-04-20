@@ -1,0 +1,5 @@
+@echo off
+set source_folder=C:\SourceFolder
+set destination_folder=C:\DestinationFolder
+
+xcopy /s /e %source_folder% %destination_folder%
